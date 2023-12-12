@@ -24,10 +24,8 @@ export const login = credentials => {
   });
 };
 
-// Función para cerrar sesión
 export const logout = () => {
   return Promise.resolve().then(() => {
-    // Elimina el token de autorización y limpia el almacenamiento local
     removeAuthorizationHeader();
     storage.remove('auth');
   });

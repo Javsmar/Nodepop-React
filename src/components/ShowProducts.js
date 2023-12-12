@@ -1,12 +1,9 @@
-import { useEffect, useState } from 'react';
-
-const showProducts = () => {
+const ShowProducts = () => {
   return (
     <div>
-      <h1>No</h1>
-
+      <h1>Products</h1>
     </div>
   )
 }
 
-export default showProducts
+export default ShowProducts;

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 
 import { register } from '../../api/registerAndLogin';
 import './style.css'
+import Button from "../Button/Button";
 
-const Register = () => {
+function Register({ onRegister }){
+  
   const initialFormData = {
     email: '',
     password: '',
@@ -31,7 +33,7 @@ const Register = () => {
     try {
       await register(formData);
       setSuccessMessage('Registro exitoso');
-      console.log('Registro exitoso');
+      onRegister();
     } catch (error) {
       console.error('Error durante el registro mensage:', error);
       if (error.response && error.response.status === 500){
@@ -60,25 +62,32 @@ const Register = () => {
         <h2>Registro</h2>
         <form onSubmit={handleSubmit}>
           <label>
-            Correo electrónico:
+            email:
             <input className="controls" type="email" name="email" value={formData.email} onChange={handleChange} required />
           </label>
           <br />
           <label>
-            Contraseña:
+            Password:
             <input className="controls" type="password" name="password" value={formData.password} onChange={handleChange} required />
           </label>
           <br />
           <label>
-            Nombre de usuario:
+            User Name:
             <input className="controls" type="text" name="username" value={formData.username} onChange={handleChange} required />
           </label>
           <br />
           <label>
-            Nombre:
+            Name:
             <input className="controls" type="text" name="name" value={formData.name} onChange={handleChange} required />
           </label>
           <br />
+          <Button
+          type="submit"
+          $variant="primary"
+          className="loginRegister-submit"
+          >
+            Registrarse
+          </Button>
           <button type="submit">Registrarse</button>
           <br />
           {successMessage && <div className="success-message">{successMessage}</div>}
