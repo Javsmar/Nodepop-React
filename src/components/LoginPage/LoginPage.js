@@ -2,30 +2,27 @@ import { useState } from "react";
 import { login } from "../../api/registerAndLogin";
 import './style.css'
 import Button from "../Button/Button";
+import { handleChange } from "../credentials";
 
 function LoginPage({ onLogin }) {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [credentials, setCredentials] = useState({
+    email: '',
+    password: '',
+  })
 
   const handleSubmit = async (event) => {
     event.preventDefault(); 
 
-    await login({
-      email,
-      password,
-    });
+    await login(credentials);
     onLogin();
   };
 
-  const handleMailChange = (event) => {
-    setEmail(event.target.value);
+  const handleInputChange = (event) => {
+    handleChange(event, setCredentials);
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
+  const {email, password} = credentials
   const disabled = !(email && password)
 
 
@@ -36,11 +33,11 @@ function LoginPage({ onLogin }) {
         <form onSubmit={handleSubmit}>
           <label>
             Email
-            <input className="control" type="email" name="email" onChange={handleMailChange} required/>
+            <input className="control" type="email" name="email" onChange={handleInputChange} required/>
           </label>
           <label>
             Password
-            <input className="control" type="password" name="password" onChange={handlePasswordChange} required/>
+            <input className="control" type="password" name="password" onChange={handleInputChange} required/>
           </label>
           <Button
             type="submit"

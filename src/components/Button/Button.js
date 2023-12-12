@@ -6,10 +6,10 @@ const Button = styled.button`
   cursor: pointer;
   border-radius: 9999px;
   border-style: solid;
-  border-width: 1px;
+  border-width: 2px;
   background-color: ${props =>
     props.$variant === 'primary' ? accentColor : 'white'};
-  border-color: #1f53c5;
+  border-color: #0b55f3;
   color: ${props => (props.$variant === 'primary' ? 'white' : accentColor)};
   display: inline-flex;
   align-items: center;
