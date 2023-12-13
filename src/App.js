@@ -3,6 +3,8 @@ import ShowProducts from './components/ShowProducts';
 import LoginPage from './components/LoginPage/LoginPage';
 import storage from './utils/storage';
 import { setAuthorizationHeader } from './api/client';
+import NewProductPage from './components/NewProductPage';
+
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -26,7 +28,15 @@ function App() {
   return (
     <div className="App">
       <h1>NodePop</h1>
-      {isLogged ? <ShowProducts onLogout={handleLogout}/> : <LoginPage onLogin={handleLogin} />}
+      {isLogged ? ( 
+        <>
+        <ShowProducts onLogout={handleLogout}/>
+        <NewProductPage />
+        </>
+      ) : ( 
+        <LoginPage onLogin={handleLogin} />
+      )}
+
     </div>
   );
 }

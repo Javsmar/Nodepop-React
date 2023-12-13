@@ -43,3 +43,11 @@
   font-family: 'calibri';
   font-size: 18px;
 }
+
+.control-session{
+  display: flex;
+  margin-bottom: 20px;
+  font-family: 'calibri';
+  
+}
+

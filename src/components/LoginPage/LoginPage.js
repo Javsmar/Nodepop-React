@@ -16,14 +16,13 @@ function LoginPage({ onLogin }) {
     event.preventDefault();
     
     const token = await login(credentials);
-    console.log("Token:", token);
     
     if (credentials.remember && token) {
       storage.set('auth', token);
     }else{
       storage.remove('auth');
     }
-
+    
     onLogin();
   };
 
@@ -60,9 +59,9 @@ function LoginPage({ onLogin }) {
             />
           </label>
           <label>
-            Recordar contraseña
+            Recordar session
             <input
-              className="control"
+              className="control-session"
               type="checkbox"
               name="remember"
               checked={credentials.remember}
