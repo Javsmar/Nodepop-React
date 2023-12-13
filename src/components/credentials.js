@@ -1,7 +1,9 @@
 export const handleChange = (event, setCredentials) => {
-  setCredentials(currentCredentials => ({
-    ...currentCredentials,
-    [event.target.name]: event.target.value,
+  const { name, type, checked } = event.target;
+  const newValue = type === "checkbox" ? checked : event.target.value;
 
+  setCredentials((currentCredentials) => ({
+    ...currentCredentials,
+    [name]: newValue,
   }));
 };

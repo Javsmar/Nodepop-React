@@ -1,20 +1,29 @@
 import { useState } from "react";
 import { login } from "../../api/registerAndLogin";
-import './style.css'
+import './style.css';
 import Button from "../Button/Button";
 import { handleChange } from "../credentials";
+import storage from "../../utils/storage";
 
 function LoginPage({ onLogin }) {
-
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
-  })
+    remember: false,
+  });
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
+    
+    const token = await login(credentials);
+    console.log("Token:", token);
+    
+    if (credentials.remember && token) {
+      storage.set('auth', token);
+    }else{
+      storage.remove('auth');
+    }
 
-    await login(credentials);
     onLogin();
   };
 
@@ -22,9 +31,8 @@ function LoginPage({ onLogin }) {
     handleChange(event, setCredentials);
   };
 
-  const {email, password} = credentials
-  const disabled = !(email && password)
-
+  const { email, password } = credentials;
+  const disabled = !(email && password);
 
   return (
     <div className="containerLoginPage">
@@ -33,18 +41,40 @@ function LoginPage({ onLogin }) {
         <form onSubmit={handleSubmit}>
           <label>
             Email
-            <input className="control" type="email" name="email" onChange={handleInputChange} required/>
+            <input
+              className="control"
+              type="email"
+              name="email"
+              onChange={handleInputChange}
+              required
+            />
           </label>
           <label>
             Password
-            <input className="control" type="password" name="password" onChange={handleInputChange} required/>
+            <input
+              className="control"
+              type="password"
+              name="password"
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+          <label>
+            Recordar contraseña
+            <input
+              className="control"
+              type="checkbox"
+              name="remember"
+              checked={credentials.remember}
+              onChange={handleInputChange}
+            />
           </label>
           <Button
             type="submit"
             $variant="primary"
             className="loginForm-submit"
             disabled={disabled}
-            >
+          >
             Login
           </Button>
         </form>
