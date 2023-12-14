@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 import Layout from "../layout/layout";
 import { getLatestProducts } from "./service";
 
-const ShowProducts = (props) => {
+const ShowProducts = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ const ShowProducts = (props) => {
   }, []);
 
   return (
-    <Layout title="Nodepop Snikers" {...props}>
+    <Layout title="Nodepop Snikers">
       <div className="showProducts">
         <h1>Snikers</h1>
         {/* <Button onClick={handleLogout}>Logout</Button> */}

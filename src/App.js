@@ -3,6 +3,7 @@ import ShowProducts from "./components/products/ShowProducts";
 import LoginPage from "./components/LoginPage/LoginPage";
 import storage from "./utils/storage";
 import { setAuthorizationHeader } from "./api/client";
+import { AuthContext } from "./components/auth/context";
 
 
 function App() {
@@ -16,25 +17,27 @@ function App() {
     }
   }, []);
 
-  const handleLogin = () => {
-    setIsLogged(true);
-  };
+  const handleLogin = () => setIsLogged(true);
+  const handleLogout = () => setIsLogged(false);
 
-  const handleLogout = () => {
-    setIsLogged(false);
+  const authValue = {
+    isLogged,
+    onLogout: handleLogout,
+    onLogin: handleLogin
   };
 
   return (
-    <div className="App">
-      <h1>NodePop</h1>
-      {isLogged ? (
-      <> 
-        <ShowProducts onLogout={handleLogout} isLogged={ isLogged }/>
-      </>
-      ) : (
-        <LoginPage onLogin={handleLogin} />
-      )}
-    </div>
+    <AuthContext.Provider value={authValue}>
+      <div className="App">
+        {isLogged ? (
+          <> 
+            <ShowProducts />
+          </>
+        ) : (
+          <LoginPage onLogin={handleLogin} />
+        )}
+      </div>
+    </AuthContext.Provider>
   );
 }
 

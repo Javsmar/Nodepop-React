@@ -1,10 +1,10 @@
 import Footer from "./Footer";
 import Header from "./Header";
 
-function Layout({ title, children, ...rest }) {
+function Layout({ title, children }) {
   return (
     <div>
-      <Header { ...rest }/>
+      <Header />
       <main>
         <h2>{title}</h2>
         {children}

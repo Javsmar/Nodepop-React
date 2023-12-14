@@ -9,7 +9,7 @@ const Button = styled.button`
   border-width: 2px;
   background-color: ${props =>
     props.$variant === 'primary' ? accentColor : 'white'};
-  border-color: #0b55f3;
+  border-color: red;
   color: ${props => (props.$variant === 'primary' ? 'white' : accentColor)};
   display: inline-flex;
   align-items: center;
