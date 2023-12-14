@@ -1,17 +1,9 @@
-import Button from "../Button/Button";
 import logo, { ReactComponent as Icon} from "../../assets/jordan-air-logo-svgrepo-com.svg"
-import { logout } from "../../api/registerAndLogin";
 import './styles/stylesHeader.css'
-import { useAuth } from "../auth/context";
+import AuthButton from "../LoginPage/components/AuthButtons";
 
 function Header(){
-  const { isLogged, onLogout } = useAuth();
-
-  const handleLogoutClick = async () => {
-    await logout();
-    onLogout();
-  };
-
+  
   return(
     <header className="header">
       <nav className="nav-header">
@@ -20,16 +12,10 @@ function Header(){
         </div>
         <h1>NodePop</h1>
         <div className="button-header">
-          {isLogged ? (
-            <Button onClick={handleLogoutClick}>Logout</Button>
-          ) : (
-          <Button $variant="primary">Login</Button>
-          )}
+          <AuthButton />
         </div>
       </nav>
     </header>
-
-  )
-}
-
+  );
+};
 export default Header;
