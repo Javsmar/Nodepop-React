@@ -4,11 +4,10 @@ import './style.css';
 import Button from "../Button/Button";
 import { handleChange } from "../credentials";
 import storage from "../../utils/storage";
-import { useContext } from "react";
-import { AuthContext } from "../auth/context";
+import { useAuth } from "../auth/context";
 
 function LoginPage() {
-  const { onLogin } =  useContext(AuthContext);
+  const { onLogin } =  useAuth();
   
   const [credentials, setCredentials] = useState({
     email: '',
