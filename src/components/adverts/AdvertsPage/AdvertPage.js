@@ -20,7 +20,7 @@ const AdvertPage = () => {
   return (
     <div className="showProducts">
       <h1>Snikers Jordan</h1>
-      {/* <Button onClick={handleLogout}>Logout</Button> */}
+
       {products.length ? (
         <ul className="ulShowproducts">
 

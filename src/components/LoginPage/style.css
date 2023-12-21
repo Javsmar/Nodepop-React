@@ -51,3 +51,28 @@
   
 }
 
+.errorLogin{
+  width: 100%;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  font-family: 'calibri';
+  font-size: 18px;
+}
+
+.registerLink{
+  width: 30%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #24303c;
+  color: white;
+  padding: 10px;
+  border-radius: 15px;
+  border: 2px solid red;
+  font-family: 'calibri';
+  font-size: 18px;
+}
+

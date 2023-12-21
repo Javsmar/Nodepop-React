@@ -58,8 +58,6 @@ function Register({ onRegister }){
   }, [successMessage, error]);
 
   return (
-    <Layout>
-
     <div className="containerRegisterpage">
       <div className="registerPage">
         <h2>Registro</h2>
@@ -97,7 +95,6 @@ function Register({ onRegister }){
         </form>
       </div>
     </div>
-    </Layout>
   );
 };
 

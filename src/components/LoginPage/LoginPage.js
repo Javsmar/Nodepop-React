@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../../api/registerAndLogin";
 import './style.css';
@@ -15,18 +16,24 @@ function LoginPage() {
     remember: false,
   });
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    const token = await login(credentials);
-    
-    if (credentials.remember && token) {
-      storage.set('auth', token);
-    }else{
-      storage.remove('auth');
+
+    try {
+      const token = await login(credentials);
+
+      if (credentials.remember && token) {
+        storage.set('auth', token);
+      } else {
+        storage.remove('auth');
+      }
+
+      onLogin();
+    } catch (error) {
+      setErrorMessage('Credenciales no válidas vuelva a intentarlo o Registrarte');
     }
-    
-    onLogin();
   };
 
   const handleInputChange = (event) => {
@@ -79,6 +86,12 @@ function LoginPage() {
           >
             Login
           </Button>
+          <div className="errorLogin">
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+          </div>
+          <Link to="/register">
+            <p className="registerLink">Register</p>
+          </Link>
         </form>
       </div>
     </div>

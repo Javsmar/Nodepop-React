@@ -1,6 +1,7 @@
 import client, { setAuthorizationHeader, removeAuthorizationHeader } from './client';
 import storage from '../utils/storage';
 
+
 export const register = async (userData) => {
   try {
     const { accessToken } = await client.post('/api/auth/signup', userData);
