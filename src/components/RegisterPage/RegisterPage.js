@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { register } from '../../api/registerAndLogin';
 import './style.css'
 import Button from "../Button/Button";
+import Layout from "../layout/layout";
 
 function Register({ onRegister }){
   
@@ -57,6 +58,8 @@ function Register({ onRegister }){
   }, [successMessage, error]);
 
   return (
+    <Layout>
+
     <div className="containerRegisterpage">
       <div className="registerPage">
         <h2>Registro</h2>
@@ -88,13 +91,13 @@ function Register({ onRegister }){
           >
             Registrarse
           </Button>
-          <button type="submit">Registrarse</button>
           <br />
           {successMessage && <div className="success-message">{successMessage}</div>}
           {error && <div className="error-message">{error}</div>}
         </form>
       </div>
     </div>
+    </Layout>
   );
 };
 
