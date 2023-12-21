@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Button from "../../Button/Button";
-import Layout from "../../layout/layout";
 import { getLatestProducts } from "./service";
 import "./showAdvert.css"
 

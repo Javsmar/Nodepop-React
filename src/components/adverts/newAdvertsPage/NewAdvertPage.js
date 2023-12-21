@@ -1,4 +1,3 @@
-import Layout from "../../layout/layout";
 import "./newAdvert.css"
 
 function NewAdvertPage() {
