@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import { register } from '../../api/registerAndLogin';
 import './style.css'
-import Button from "../Button/Button";
-import Layout from "../layout/layout";
 
-function Register({ onRegister }){
+import Button from "../Button/Button";
+import Footer from "../layout/Footer";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
+
+function Register(){
   
   const initialFormData = {
     email: '',
@@ -18,6 +20,7 @@ function Register({ onRegister }){
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
+  const navigate = useNavigate(); 
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -33,33 +36,42 @@ function Register({ onRegister }){
 
     try {
       await register(formData);
-      setSuccessMessage('Registro exitoso');
-      onRegister();
+      setSuccessMessage('Registro exitoso, logueate');
+      
     } catch (error) {
       console.error('Error durante el registro mensage:', error);
       if (error.response && error.response.status === 500){
         setError('Hubo un error durante el registro. Por favor, inténtelo de nuevo más tarde.');
       } else {
         console.error('Error durante el registro:', error.response ? error.response.data : error.message);
-        setError('La dirección de correo electrónico o el nombre de usuario ya están en uso. Intente con otros diferentes.');
-        setFormData(initialFormData);
+        setError('La dirección de correo electrónico o el usuario ya están en uso. procede a loggearte');
+        // setFormData(initialFormData);
       }    
     }
   };
 
   useEffect(() => {
-    if(successMessage || error){
+    if (successMessage) {
       const timer = setTimeout(() => {
         setSuccessMessage(null);
-        setError(null);
+        navigate("/login");
       }, 6000);
+
+      return () => clearTimeout(timer);
+
+    } else if (error) {
+      const timer = setTimeout(() => {
+        setError(null);
+        navigate("/login");
+      }, 5000);
+
       return () => clearTimeout(timer);
     }
-  }, [successMessage, error]);
+  }, [successMessage, error, navigate]);
+
+  
 
   return (
-    <Layout>
-
     <div className="containerRegisterpage">
       <div className="registerPage">
         <h2>Registro</h2>
@@ -84,20 +96,25 @@ function Register({ onRegister }){
             <input className="controls" type="text" name="name" value={formData.name} onChange={handleChange} required />
           </label>
           <br />
-          <Button
-          type="submit"
-          $variant="primary"
-          className="loginRegister-submit"
-          >
-            Registrarse
-          </Button>
+          <div className="regis-login">
+            <Button
+            type="submit"
+            $variant="primary"
+            className="loginRegister-submit"
+            >
+              Registrarse
+            </Button>
+            <Button>
+              <NavLink className="loginRegister-submit" to="/login">Login</NavLink>
+            </Button>
+          </div>
+
           <br />
           {successMessage && <div className="success-message">{successMessage}</div>}
           {error && <div className="error-message">{error}</div>}
         </form>
       </div>
     </div>
-    </Layout>
   );
 };
 

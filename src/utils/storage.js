@@ -1,9 +1,17 @@
 const storage = {
   get(key) {
     const value = localStorage.getItem(key);
-    if (!value) {
+
+    // Verificar si el valor es "undefined" (cadena) y manejarlo
+    if (value === 'undefined') {
+      return undefined;
+    }
+
+    // Verificar si el valor es nulo o indefinido
+    if (value == null) {
       return null;
     }
+
     return JSON.parse(value);
   },
 

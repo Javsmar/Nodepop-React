@@ -13,8 +13,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
 }
+
+.nav-header .active{
+  color: rgb(50, 150, 243);
+}
+
 
 .nav-header h1{
   width: 30%;
@@ -33,5 +37,17 @@
   justify-content: center;
 }
 .button-header{
-  padding: 30px;
+  padding: 10px;
+}
+
+.links-header{
+  width: 25%;
+  display: flex;
+  justify-content: space-around;
+  color: white;
+}
+
+.links-header a{
+  text-decoration: none;
+  color: white;
 }

@@ -17,6 +17,7 @@
 
 .loginPage{
   width: 400px;
+  height: 450px;
   background: #243032;
   padding: 30px;
   margin: auto;
@@ -51,3 +52,7 @@
   
 }
 
+.login-regis{
+  display: flex;
+  justify-content: space-between;
+}

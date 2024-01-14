@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { logout } from "../../../api/registerAndLogin";
 import Button from "../../Button/Button";
 import { useAuth } from "../../auth/context";
@@ -11,9 +12,9 @@ function AuthButton (){
   };
 
   return isLogged ? (
-    <Button onClick={handleLogoutClick}>Logout</Button>
+    <Button  onClick={handleLogoutClick}>Logout</Button>
   ) : (
-    <Button $variant="primary">Login</Button>
+    <Button as={Link} to="/login" replace $variant="primary">Login</Button>
   );
 };
 

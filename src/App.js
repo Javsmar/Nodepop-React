@@ -5,6 +5,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import AdvertPage from "./components/adverts/AdvertsPage/AdvertPage";
 import Register from "./components/RegisterPage/RegisterPage"
 import AdvertPageDetails from "./components/adverts/AdvertPageDetails";
+import RequireAuth from "./components/LoginPage/components/RequireAuth";
 
 function App() {
   
@@ -16,7 +17,14 @@ function App() {
       <Route path="/AdvertPage" element={<Layout />}>
         <Route index element={<AdvertPage />}/>
         <Route path=":advertId" element={<AdvertPageDetails />} />
-        <Route path="new" element={<NewAdvertPage />} />
+        <Route
+          path="new" 
+          element={
+            <RequireAuth>
+              <NewAdvertPage />
+            </RequireAuth>
+          }
+        />
       </Route> 
       
       <Route path="/" element={<Navigate to="/Advertpage" />} />
@@ -28,15 +36,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-// isLogged ? (
-//   <Layout>
-//     <AdvertPage />
-//     <NewAdvertPage />
-//   </ Layout>
-// ) : (
-//   <LoginPage />
-// );
