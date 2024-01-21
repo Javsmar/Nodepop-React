@@ -17,40 +17,43 @@ function LoginPage() {
   });
 
   const [error, setError] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
+      setIsFetching(true);
       const token = await login(credentials);
-  
+
       if (credentials.remember && token) {
         storage.set("auth", token);
       } else {
         storage.remove("auth");
       }
-  
+      setIsFetching(false);
       onLogin();
-  
+
       const to = location?.state?.from || "/";
       navigate(to, { replace: true });
     } catch (error) {
-      // Manejar el error, por ejemplo, mostrar un mensaje o redirigir a la página de registro
+      setIsFetching(false);
       console.error("Error al iniciar sesión:", error);
-      setError('La dirección de correo electrónico o el usuario no están registrados. procede a registrarte');
+      setError(
+        "No tienes las credenciales para loggearte. procede a registrarte"
+      );
     }
   };
-  
 
   const handleInputChange = (event) => {
     handleChange(event, setCredentials);
   };
 
   const { email, password } = credentials;
-  const disabled = !(email && password);
+  const disabled = !(email && password) || isFetching;
 
   return (
     <div className="containerLoginPage">
@@ -94,10 +97,12 @@ function LoginPage() {
               className="loginForm-submit"
               disabled={disabled}
             >
-              Login
+              {isFetching ? 'Connecting...' : 'log in'}
             </Button>
             <Button>
-                <NavLink className="loginRegister-submit" to="/register">Register</NavLink>
+              <NavLink className="loginRegister-submit" to="/register">
+                Register
+              </NavLink>
             </Button>
           </div>
           {error && <div className="error-message">{error}</div>}

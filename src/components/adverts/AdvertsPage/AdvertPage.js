@@ -2,20 +2,30 @@ import { useEffect, useState } from "react";
 import Button from "../../Button/Button";
 import { getLatestProducts } from "./service";
 import "./showAdvert.css"
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { setAuthorizationHeader } from "../../../api/client";
+import storage from "../../../utils/storage";
 
 const EmptyList = () => (
   <div className="tweetsPage-empty">
     <p>Be the first one!</p>
-    <Button $variant="primary">Create tweet</Button>
+    <Button $variant="primary">
+      <NavLink to="/AdvertPage/new">Create tweet</NavLink> 
+    </Button>
   </div>
 );
 
-const AdvertPage = () => {
+function AdvertPage() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    getLatestProducts().then((products) => setProducts(products));
+    const token = storage.get("auth")
+    if(token) {
+      setAuthorizationHeader(token);
+      getLatestProducts().then((products) => setProducts(products));
+    } else {
+      console.error("Token no disponible");
+    }
   }, []);
 
   return (
@@ -42,8 +52,11 @@ const AdvertPage = () => {
                 <div className="divAdverts">
                   <strong>Price:</strong> {product.price}
                 </div>
-              </Link>
 
+                <div className="divAdverts">
+                  <strong>Tags:</strong> {product.tags.join(', ')}
+                </div>
+              </Link>
 
             </li>
           ))}

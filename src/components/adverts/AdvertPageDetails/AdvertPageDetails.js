@@ -1,9 +1,12 @@
+import { useParams } from "react-router-dom";
 import Content from "../../../components/layout/Content"
 
 function AdvertPageDetails() {
+  const params = useParams();
+  console.log({ params });
   return(
     <Content title="Adverts Details">
-      <div>Adverts Details</div>
+      <div>Adverts Details { params.advertId } aqui</div>
     </Content>
   );
 }

@@ -27,7 +27,7 @@ function App() {
         />
       </Route> 
       
-      <Route path="/" element={<Navigate to="/Advertpage" />} />
+      <Route path="/" element={<Navigate to="/AdvertPage" />} />
       <Route path="/404" element={<div>404 | Not Fount</div>} />
       <Route path="*" element={<Navigate to="/404" />} />
       

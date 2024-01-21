@@ -3,3 +3,14 @@
   height: 100px;
   border: 2px solid rgb(247, 20, 20);
 }
+
+.formNewAdvert{
+  width: 100%;
+  height: 400px;
+  background-color: #4b6c71;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  
+
+}
