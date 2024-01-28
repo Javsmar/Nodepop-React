@@ -6,8 +6,24 @@ import AdvertPage from "./components/adverts/AdvertsPage/AdvertPage";
 import Register from "./components/RegisterPage/RegisterPage"
 import AdvertPageDetails from "./components/adverts/AdvertPageDetails";
 import RequireAuth from "./components/LoginPage/components/RequireAuth";
+import { setAuthorizationHeader } from "./api/client";
+import storage from "./utils/storage";
+import { getLatestProducts } from "./components/adverts/AdvertsPage/service";
+import { useEffect, useState } from "react";
 
 function App() {
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const token = storage.get("auth");
+    if (token) {
+      setAuthorizationHeader(token);
+      getLatestProducts().then((products) => setProducts(products));
+    } else {
+      console.error("Token no disponible");
+    }
+  }, []);
   
   return (
     <Routes>
@@ -16,7 +32,7 @@ function App() {
 
       <Route path="/AdvertPage" element={<Layout />}>
         <Route index element={<AdvertPage />}/>
-        <Route path=":advertId" element={<AdvertPageDetails />} />
+        <Route path="/AdvertPage/:advertId" element={<AdvertPageDetails products={products}/>} />
         <Route
           path="new" 
           element={

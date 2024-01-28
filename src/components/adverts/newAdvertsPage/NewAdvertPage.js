@@ -14,7 +14,6 @@ const validTags = ({ tags }) => !!tags.length;
 // Componente NewAdvertPage
 function NewAdvertPage() {
   
-   // Estado para manejar los valores del formulario
   const[formData, setFormData] = useState({
     name: "",
     sale: true, // Compra / Venta
@@ -23,7 +22,6 @@ function NewAdvertPage() {
     photo: null,
   });
 
-  // Estado para manejar las validaciones del formulario
   const [formErrors, setFormErrors] = useState({
     name: false,
     sale: false,
@@ -32,24 +30,19 @@ function NewAdvertPage() {
     photo: false,
   });
 
-  // Estado para marcar si el anuncio se creó exitosamente
   const [adCreated, setAdCreated] = useState(null);
 
   const [error, setError] = useState(null);
   
-
-  // Objeto de tags disponibles (puedes cargarlo dinámicamente)
   const availableTags = ["Nuevo", "Usado", "Oferta"];
 
   const navigate = useNavigate(); 
 
   const photoRef = useRef(null);
 
-  // Función para manejar el cambio de valores en el formulario
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    // Si el campo es de tipo archivo (file), maneja la carga de la foto
     if (type === "checkbox") {
       setFormData({
         ...formData,
@@ -69,7 +62,6 @@ function NewAdvertPage() {
     }
   };
 
-  // Función para manejar el cambio en los tags
   const handleTagsChange = (selectedTags) => {
     setFormData({
       ...formData,
@@ -95,38 +87,33 @@ function NewAdvertPage() {
     }
   }, [adCreated, error, navigate]);
   
-   // Función para manejar el envío del formulario
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validar campos
     const nameValid = validName(formData);
     const priceValid = validPrice(formData);
     const tagsValid = validTags(formData);
 
-    // Actualizar estado de validaciones
     setFormErrors({
       name: !nameValid,
       price: !priceValid,
       tags: !tagsValid,
-      photo: !photoRef.current, // Validación básica para la foto
+      photo: !photoRef.current, 
     });
 
-    // Si todas las validaciones son exitosas, realizar la lógica de envío (por ahora solo imprimir en consola)
     if (nameValid && priceValid && tagsValid && formData.photo) {
       try {
         const { photo, ...formDataWithoutPhoto } = formData;
         console.log('Formulario válido, enviar a la API:', formData);
-        // Llamar a la función createAdvert para enviar los datos a la API
+        
         const response = await createAdvert({
           ...formDataWithoutPhoto,
-          photo: photoRef.current, // Usar la ref para la foto
+          photo: photoRef.current, 
         });
 
-        // Imprimir resultado de la llamada a la API
         console.log("Respuesta de la API:", response);
         
-        // Marcamos el anuncio como creado exitosamente
         setAdCreated('Anucio creado exitosamente');
   
 
@@ -143,7 +130,7 @@ function NewAdvertPage() {
   return (
     <div className="formNewAdvert">
       <h1>Nuevo Anuncio</h1>
-      <form onSubmit={handleSubmit}>
+      <form  className="formNew" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Nombre</label>
           <input
@@ -209,19 +196,23 @@ function NewAdvertPage() {
             accept="image/*"
             onChange={handleInputChange}
           />
-          {formData.photo && (
+          {/* {formData.photo && (
             <img
               src={URL.createObjectURL(formData.photo)}
               alt="Preview"
-              style={{ maxWidth: '100%', maxHeight: '200px' }}
+              style={{ maxWidth: '50%', maxHeight: '100px' }}
             />
-          )}
-          {formErrors.photo && <span>Este campo es requerido</span>}
+          )}*/}
+          {formErrors.photo && <span>Este campo es requerido</span>} 
         </div>
 
-        <Button type="submit" disabled={Object.values(formErrors).some((error) => error)}>
-          Crear Anuncio
-        </Button>
+        <div className="buttonNewAdvert">
+          <div>
+            <Button type="submit" disabled={Object.values(formErrors).some((error) => error)}>
+              Crear Anuncio
+            </Button>
+          </div>
+        </div>
         {adCreated && <div className="success-message">{adCreated}</div>}
         {error && <div className="error-message">{error}</div>}
       </form>

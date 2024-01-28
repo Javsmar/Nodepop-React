@@ -36,7 +36,7 @@ function AdvertPage() {
 
           {products.map(( {id, ...product }) => (
             <li className="listAdvert" key={id}>
-              <Link to={`${id}`}>
+              <Link to={`/AdvertPage/${id}`}>
                 <div className="divAdverts jordan">
                   <img src={product.photo} alt="Product" />
                 </div>

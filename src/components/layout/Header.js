@@ -1,7 +1,7 @@
-import logo, { ReactComponent as Icon} from "../../assets/jordan-air-logo-svgrepo-com.svg"
+import { ReactComponent as Icon} from "../../assets/jordan-air-logo-svgrepo-com.svg"
 import './styles/stylesHeader.css'
 import AuthButton from "../LoginPage/components/AuthButtons";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Header(){
   
@@ -11,9 +11,9 @@ function Header(){
         <div className="icon-jordan">
           <Icon />
         </div>
-        <h1>NodePop</h1>
         <div className="links-header">
           <NavLink to="/AdvertPage/new">New Advert</NavLink>
+          <h1>JORDAN</h1>
           <NavLink to="/Advertpage" end>Advert Page</NavLink>
         </div>
         <div className="button-header">
