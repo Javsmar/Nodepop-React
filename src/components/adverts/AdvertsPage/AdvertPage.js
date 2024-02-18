@@ -21,6 +21,7 @@ function AdvertPage() {
   const [products, setProducts] = useState([]);
   const [nameFilter, setNameFilter] = useState("");
   const [saleFilter, setSaleFilter] = useState(null); 
+  const [isLoading, setIsLoading] = useState(true);
 
   const location = useLocation();
 
@@ -28,12 +29,34 @@ function AdvertPage() {
     const token = storage.get("auth");
     if (token) {
       setAuthorizationHeader(token);
+
+      const filters = {};
+
+      if (nameFilter) {
+        filters.name = nameFilter;
+      }
+
+      if (saleFilter !== null) { 
+        filters.sale = saleFilter; 
+      }
+
+      getLatestProducts(filters)
+        .then((products) => {
+          setProducts(products);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error al obtener los productos:", error);
+          setIsLoading(false);
+        });
     } else {
       console.error("Token no disponible");
     }
   }, []);
 
   const handleSearch = () => {
+    setIsLoading(true);
+
     const filters = {};
 
     if (nameFilter) {
@@ -44,7 +67,15 @@ function AdvertPage() {
       filters.sale = saleFilter; 
     }
 
-    getLatestProducts(filters).then((products) => setProducts(products));
+    getLatestProducts(filters)
+      .then((products) => {
+        setProducts(products);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error al obtener los productos:", error);
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -60,40 +91,46 @@ function AdvertPage() {
         </select>
         <Button onClick={handleSearch}>Buscar</Button>
       </div>
-      {products.length ? (
-        <ul className="ulShowproducts">
-          {products.map(({ id, ...product }) => (
-            <li className="listAdvert" key={id}>
-              <Link to={`/AdvertPage/${id}`}>
-                <div className="divAdverts jordan">
-                  <img src={product.photo} alt="Product" />
-                </div>
-
-                <div className="divAdverts">
-                  <strong>Name:</strong> {product.name}
-                </div>
-
-                <div className="divAdverts">
-                  {product.sale ? (
-                    <strong>Venta</strong>
-                  ) : (
-                    <strong>Compra</strong>
-                  )}
-                </div>
-
-                <div className="divAdverts">
-                  <strong>Price:</strong> {product.price}
-                </div>
-
-                <div className="divAdverts">
-                  <strong>Tags:</strong> {product.tags.join(", ")}
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+      {isLoading ? (
+        <p>Cargando...</p>
       ) : (
-        <EmptyList />
+        <>
+          {products.length ? (
+            <ul className="ulShowproducts">
+              {products.map(({ id, ...product }) => (
+                <li className="listAdvert" key={id}>
+                  <Link to={`/AdvertPage/${id}`}>
+                    <div className="divAdverts jordan">
+                      <img src={product.photo} alt="Product" />
+                    </div>
+
+                    <div className="divAdverts">
+                      <strong>Name:</strong> {product.name}
+                    </div>
+
+                    <div className="divAdverts">
+                      {product.sale ? (
+                        <strong>Venta</strong>
+                      ) : (
+                        <strong>Compra</strong>
+                      )}
+                    </div>
+
+                    <div className="divAdverts">
+                      <strong>Price:</strong> {product.price}
+                    </div>
+
+                    <div className="divAdverts">
+                      <strong>Tags:</strong> {product.tags.join(", ")}
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <EmptyList />
+          )}
+        </>
       )}
     </div>
   );
