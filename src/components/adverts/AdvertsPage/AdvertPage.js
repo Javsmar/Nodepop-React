@@ -1,3 +1,5 @@
+// AdvertPage.js
+
 import { useEffect, useState } from "react";
 import Button from "../../Button/Button";
 import { getLatestProducts } from "./service";
@@ -18,37 +20,31 @@ const EmptyList = () => (
 function AdvertPage() {
   const [products, setProducts] = useState([]);
   const [nameFilter, setNameFilter] = useState("");
-  const [saleFilter, setSaleFilter] = useState("todos");
+  const [saleFilter, setSaleFilter] = useState(null); 
+
   const location = useLocation();
 
   useEffect(() => {
     const token = storage.get("auth");
     if (token) {
       setAuthorizationHeader(token);
-
-      const filters = {};
-
-      if (nameFilter) {
-        filters.name = nameFilter;
-      }
-
-      if (saleFilter !== "todos") {
-        filters.sale = saleFilter;
-      }
-
-      getLatestProducts(filters).then((products) => setProducts(products));
     } else {
       console.error("Token no disponible");
     }
-  }, [location.search, nameFilter, saleFilter]);
+  }, []);
 
+  const handleSearch = () => {
+    const filters = {};
 
-  const handleNameFilterChange = (e) => {
-    setNameFilter(e.target.value);
-  };
+    if (nameFilter) {
+      filters.name = nameFilter;
+    }
 
-  const handleSaleFilterChange = (e) => {
-    setSaleFilter(e.target.value);
+    if (saleFilter !== null) { 
+      filters.sale = saleFilter; 
+    }
+
+    getLatestProducts(filters).then((products) => setProducts(products));
   };
 
   return (
@@ -56,12 +52,13 @@ function AdvertPage() {
       <h1>Adverts</h1>
       <div className="filters">
         <h2>Filtros</h2>
-        <input type="text" placeholder="Nombre" value={nameFilter} onChange={handleNameFilterChange} />
-        <select value={saleFilter} onChange={handleSaleFilterChange}>
+        <input type="text" placeholder="Nombre" value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} />
+        <select value={saleFilter === null ? "todos" : saleFilter ? "Venta" : "Compra"} onChange={(e) => setSaleFilter(e.target.value === "todos" ? null : e.target.value === "Venta")}> 
           <option value="todos">Todos</option>
-          <option value="venta">Venta</option>
-          <option value="compra">Compra</option>
+          <option value="Venta">Venta</option>
+          <option value="Compra">Compra</option>
         </select>
+        <Button onClick={handleSearch}>Buscar</Button>
       </div>
       {products.length ? (
         <ul className="ulShowproducts">
@@ -100,6 +97,6 @@ function AdvertPage() {
       )}
     </div>
   );
-};
+}
 
 export default AdvertPage;

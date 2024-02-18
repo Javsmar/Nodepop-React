@@ -76,14 +76,14 @@ function NewAdvertPage() {
       const timer = setTimeout(() => {
         setAdCreated(false);
         navigate("/AdvertPage");
-      }, 3000);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   
     if (error) {
       const timer = setTimeout(() => {
         setError(null);
-      }, 3000);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [adCreated, error, navigate]);
@@ -197,7 +197,7 @@ function NewAdvertPage() {
             accept="image/*"
             onChange={handleInputChange}
           />
-          
+      
           {formErrors.photo && <span>Este campo es requerido</span>} 
         </div>
 
