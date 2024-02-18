@@ -57,6 +57,12 @@
   padding: 30px;
 }
 
+.containerRegisterpage h1{
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+}
+
 .loginRegister-submit{
   text-decoration: none;
   color:  #4b6c71;

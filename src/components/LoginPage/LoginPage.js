@@ -6,6 +6,7 @@ import { handleChange } from "../credentials";
 import storage from "../../utils/storage";
 import { useAuth } from "../auth/context";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import Footer from "../layout/Footer";
 
 function LoginPage() {
   const { onLogin } = useAuth();
@@ -43,7 +44,7 @@ function LoginPage() {
       setIsFetching(false);
       console.error("Error al iniciar sesión:", error);
       setError(
-        "No tienes las credenciales para loggearte. procede a registrarte"
+        "Herror al hacer login revisa Email y Password si no estas resgistrado procede a registrarte"
       );
     }
   };
@@ -57,6 +58,7 @@ function LoginPage() {
 
   return (
     <div className="containerLoginPage">
+      <h1>NodePop</h1>
       <div className="loginPage">
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
@@ -108,6 +110,7 @@ function LoginPage() {
           {error && <div className="error-message">{error}</div>}
         </form>
       </div>
+      <Footer/>
     </div>
   );
 }

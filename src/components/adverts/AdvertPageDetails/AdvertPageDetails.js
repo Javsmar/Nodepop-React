@@ -21,7 +21,7 @@ function AdvertPageDetails({ products }) {
             </div>
             <div className="detailsproducts">
               <div className="products">Name: {advert.name}</div>
-              <div className="products">Sale: {advert.sale ? 'Yes' : 'No'}</div>
+              <div className="products">Sale: {advert.sale ? 'Venta' : 'Compra'}</div>
               <div className="products">Price: {advert.price}</div>
               <div className="products">Tags: {advert.tags.join(', ')}</div>
             </div>

@@ -4,7 +4,7 @@ import Header from "./Header";
 
 function Layout() {
   return (
-    <div>
+    <div className="layoutStyle">
       <Header />
       <main className="layout-main bordered">
         <Outlet />

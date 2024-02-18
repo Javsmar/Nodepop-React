@@ -73,6 +73,7 @@ function Register(){
 
   return (
     <div className="containerRegisterpage">
+      <h1>NodePop</h1>
       <div className="registerPage">
         <h2>Registro</h2>
         <form onSubmit={handleSubmit}>
@@ -114,6 +115,7 @@ function Register(){
           {error && <div className="error-message">{error}</div>}
         </form>
       </div>
+      <Footer/>
     </div>
   );
 };

@@ -6,12 +6,16 @@
 
 .containerLoginPage{
   width: 100%;
+  height: 689px;
   background: #4b6c71;
   padding: 30px;
 }
 
 .containerLoginPage h1{
-  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  
   margin-bottom: 20px;
 }
 

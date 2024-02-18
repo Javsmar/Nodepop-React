@@ -34,6 +34,7 @@
   height: 80px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   border: 1px solid #4b6c71; 
   color: white;
   padding: 15px;

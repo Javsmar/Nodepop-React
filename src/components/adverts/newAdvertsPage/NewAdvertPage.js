@@ -68,6 +68,7 @@ function NewAdvertPage() {
       tags: selectedTags,
     });
   };
+  
 
   useEffect(() => {
     console.log("useEffect ejecutado");
@@ -75,14 +76,14 @@ function NewAdvertPage() {
       const timer = setTimeout(() => {
         setAdCreated(false);
         navigate("/AdvertPage");
-      }, 5000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   
     if (error) {
       const timer = setTimeout(() => {
         setError(null);
-      }, 5000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [adCreated, error, navigate]);
@@ -196,13 +197,7 @@ function NewAdvertPage() {
             accept="image/*"
             onChange={handleInputChange}
           />
-          {/* {formData.photo && (
-            <img
-              src={URL.createObjectURL(formData.photo)}
-              alt="Preview"
-              style={{ maxWidth: '50%', maxHeight: '100px' }}
-            />
-          )}*/}
+          
           {formErrors.photo && <span>Este campo es requerido</span>} 
         </div>
 
